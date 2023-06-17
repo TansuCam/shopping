@@ -7,6 +7,10 @@ import { Inter } from "next/font/google";
 import "@/style/reset.css";
 import "@/style/globals.css";
 
+// Components
+// ---------------
+import Header from "@/components/header";
+
 // Meta
 // ---------------
 export const metadata = {
@@ -28,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={inter.className}>
+        <Header />
         <main>{children}</main>
       </body>
     </html>
