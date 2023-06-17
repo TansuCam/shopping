@@ -12,16 +12,20 @@ import SvgUser from "@/icons/User";
 // ---------------
 const Header: FC = () => {
   return (
-    <header className="shadow-lg">
+    <header className="shadow-lg mb-[3px]">
       <div className="flex items-center justify-between mx-12">
+        {/* Logo */}
         <Link href="/">
           <SvgLogo width={281} height={100} />
         </Link>
         <div>
-          <button className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full">
-            <SvgUser width='28' height='28' />
-            <p className="text-primary-100 font-medium">Giriş Yap</p>
-          </button>
+          {/* Login Button */}
+          <Link href="/login">
+            <button className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full">
+              <SvgUser width="28" height="28" />
+              <p className="text-primary-100 font-medium">Giriş Yap</p>
+            </button>
+          </Link>
         </div>
       </div>
     </header>
