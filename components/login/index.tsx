@@ -1,9 +1,19 @@
-//
+"use client";
+
 // React & Next
 // ---------------
-import React, { FC } from "react";
-import Link from "next/link";
+import React, { FC, useState } from "react";
+import { useRouter } from 'next/navigation'
 import Image from "next/image";
+
+// Redux 
+// ---------------
+import { login as loginStore } from "../../store/auth";
+import { useDispatch } from "react-redux";
+
+// Firebase
+// ---------------
+import { register } from "@/firebase";
 
 // Components
 // ---------------
@@ -14,6 +24,21 @@ import SvgLogo from "@/icons/Logo";
 // Main
 // ---------------
 const Login: FC = () => {
+  // States
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const dispatch = useDispatch();
+  const router = useRouter()
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    
+    const user = await register(email, password);
+    if (!user) return;
+    dispatch(loginStore(user));
+    router.push('/')
+  };
   return (
     <>
       <div className="bg-[#edf9f8] flex justify-center">
@@ -25,26 +50,30 @@ const Login: FC = () => {
             <p className="text-[#84c7c4] text-4xl mb-10 sm:my-12">
               En uygun fiyatlara ulaşmak <br /> için giriş yapın!
             </p>
-            <div>
-              <label>E-mailiniz</label>
-              <br />
-              <input
-                type="text"
-                className="w-[350px] bg-transparent p-2 text-sm border-b-2 border-gray-400 outline-none focus:border-primary-100"
-              />
-            </div>
-            <div className="my-8">
-              <label>Şifreniz</label>
-              <br />
-              <input
-                type="password"
-                className="w-[350px] bg-transparent p-2 text-sm border-b-2 border-gray-400 outline-none focus:border-primary-100"
-              />
-            </div>
-            <button className="btn bg-[#84C7C4] w-[350px] rounded-lg py-3 text-white hover:bg-primary-100">
-              {" "}
-              Giriş Yap
-            </button>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>E-mailiniz</label>
+                <br />
+                <input
+                  type="text"
+                  className="w-[350px] bg-transparent p-2 text-sm border-b-2 border-gray-400 outline-none focus:border-primary-100"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="my-8">
+                <label>Şifreniz</label>
+                <br />
+                <input
+                  type="password"
+                  className="w-[350px] bg-transparent p-2 text-sm border-b-2 border-gray-400 outline-none focus:border-primary-100"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button className="btn bg-[#84C7C4] w-[350px] rounded-lg py-3 text-white hover:bg-primary-100">
+                {" "}
+                Giriş Yap
+              </button>
+            </form>
           </div>
         </div>
       </div>

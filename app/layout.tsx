@@ -1,6 +1,12 @@
+"use client";
 // Next.js
 // ---------------
 import { Inter } from "next/font/google";
+
+// Redux Toolkit
+// ---------------
+import { Provider } from "react-redux";
+import store from "@/store";
 
 // Styles
 // ---------------
@@ -32,8 +38,10 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
+        <Provider store={store}>
+          <Header />
+          <main>{children}</main>
+        </Provider>
       </body>
     </html>
   );
