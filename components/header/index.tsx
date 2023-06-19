@@ -75,7 +75,7 @@ const Header: FC = () => {
               </Link>
 
               {/* Cart Button */}
-              <Link href="/">
+              <Link href="/cart">
                 <div className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer gap-2">
                   <span className="relative inline-block">
                     <SvgCart width="28" height="28" />
