@@ -14,3 +14,7 @@
     @apply rounded-none bg-gray-400;
   }
 }
+
+*{
+  user-select: none;
+}

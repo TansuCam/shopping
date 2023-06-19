@@ -1,19 +1,24 @@
 "use client";
 // React
 // ----------
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 // Redux Toolkit
 // ----------
 import { AppDispatch } from "@/store";
 import { fetchProducts } from "@/store/products";
 import { useDispatch, useSelector } from "react-redux";
+import SvgCartIcon from "@/icons/CartIcon";
+import clsx from "clsx";
+import { addCart } from "@/store/cart";
+import SvgAdd from "@/icons/Add";
 
 // Main
 // ----------
 const Products: FC = () => {
   // Redux hooks
   const products = useSelector((state: any) => state.products.filteredProducts);
+  const cartItems = useSelector((state: any) => state.cart.cartItems);  
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -24,7 +29,7 @@ const Products: FC = () => {
    * Formats the product price according to the Turkish currency format.
    * @param {number} price product price
    */
-  function currencyFormat(price: number) {
+  const currencyFormat = (price: number) => {
     const currency_symbol = "₺";
     const formattedOutput = new Intl.NumberFormat("tr-TR", {
       style: "currency",
@@ -32,7 +37,7 @@ const Products: FC = () => {
       minimumFractionDigits: 0,
     });
     return formattedOutput.format(price).replace(currency_symbol, "");
-  }
+  };
 
   // Main component return
   return (
@@ -52,7 +57,7 @@ const Products: FC = () => {
             }
           />
 
-          <div className="flex justify-between px-4 py-5">
+          <div className="flex justify-between items-center px-4 py-5">
             <div>
               <p className="text">{product.name}</p>
               <p className="text-sm font-medium text-[#349590]">
@@ -62,7 +67,39 @@ const Products: FC = () => {
                 {product.stock} Adetle Sınırlı
               </p>
             </div>
-            <div>icon</div>
+
+            {/* Add to cart */}
+            {cartItems.find((items: any) => items.id === product.id) ? (
+              <div
+                className="bg-[#c3ecea] flex justify-center items-center flex-wrap cursor-pointer h-[32px] w-[75px] rounded-full gap-3"
+                onClick={() => dispatch(addCart(product))}
+              >
+                <span className="relative inline-block">
+                  <SvgAdd width="26" height="26" />
+                </span>{" "}
+                <span className="relative inline-block shadow-[-2px_0px_2px_#888888] rounded-full">
+                  <SvgCartIcon width="30" height="30" />
+                  <span className="absolute inline-flex items-center justify-center px-[4px] py-[1px] leading-none rounded-full top-[5px] right-[4px] text-primary-100 bg-white text-[10px]">
+                    {
+                      cartItems.find((items: any) => items.id === product.id)
+                        ?.quantity
+                    }
+                  </span>
+                </span>
+              </div>
+            ) : (
+              <div
+                className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer"
+                onClick={() => dispatch(addCart(product))}
+              >
+                <span className="relative inline-block">
+                  <SvgCartIcon width="32" height="32" />
+                  <span className="absolute inline-flex items-center justify-center px-[4px] py-[1px] leading-none rounded-full top-[0.5px] right-0 text-white text-[16px] font-medium">
+                    +
+                  </span>
+                </span>
+              </div>
+            )}
           </div>
         </article>
       ))}

@@ -6,6 +6,7 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 // ---------
 import auth from "./auth";
 import products from "./products";
+import cart from "./cart";
 
 // Store
 // ---------
@@ -13,6 +14,7 @@ const store = configureStore({
   reducer: {
     auth: auth,
     products: products,
+    cart: cart,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
