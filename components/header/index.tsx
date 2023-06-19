@@ -14,8 +14,8 @@ import { useSelector } from "react-redux";
 // Main
 // ---------------
 const Header: FC = () => {
-  const {user} = useSelector((state: any) => state.auth);
-  
+  const { user } = useSelector((state: any) => state.auth);
+
   const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
   useEffect(() => {
     if (user) setIsUserLogin(true);

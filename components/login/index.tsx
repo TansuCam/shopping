@@ -8,7 +8,7 @@ import Image from "next/image";
 
 // Redux 
 // ---------------
-import { login as loginStore } from "../../store/auth";
+import { login as loginStore } from "@/store/auth";
 import { useDispatch } from "react-redux";
 
 // Firebase
@@ -28,9 +28,11 @@ const Login: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  // Redux dispatch
   const dispatch = useDispatch();
   const router = useRouter()
 
+  // Login form submit
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     
@@ -39,6 +41,8 @@ const Login: FC = () => {
     dispatch(loginStore(user));
     router.push('/')
   };
+
+  // Main component return
   return (
     <>
       <div className="bg-[#edf9f8] flex justify-center">

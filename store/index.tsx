@@ -1,9 +1,18 @@
+// Redux
+// ---------
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import auth from "./auth";
 
+// Reducers
+// ---------
+import auth from "./auth";
+import products from "./products";
+
+// Store
+// ---------
 const store = configureStore({
   reducer: {
     auth: auth,
+    products: products,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -12,5 +21,8 @@ const store = configureStore({
 });
 
 export default store;
+
+// Types
+// ---------
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
