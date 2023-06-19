@@ -76,13 +76,14 @@ const Header: FC = () => {
 
               {/* Cart Button */}
               <Link href="/">
-                <div className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer">
+                <div className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer gap-2">
                   <span className="relative inline-block">
                     <SvgCart width="28" height="28" />
                     <span className="absolute inline-flex items-center shadow-[0px_1px_#888888] justify-center px-[5px] py-[2px] leading-none rounded-full top-[-4px] right-[-4px] text-primary-100 bg-white text-[11.5px]">
                       {cartItems.totalQuantity}
                     </span>
                   </span>
+                  <p className="text-primary-100 font-medium">Sepetim</p>
                 </div>
               </Link>
             </>
