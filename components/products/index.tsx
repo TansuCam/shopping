@@ -13,31 +13,21 @@ import clsx from "clsx";
 import { addCart } from "@/store/cart";
 import SvgAdd from "@/icons/Add";
 
+// Helpers
+// ---------------
+import { currencyFormat } from "@/helpers";
+
 // Main
 // ----------
 const Products: FC = () => {
   // Redux hooks
   const products = useSelector((state: any) => state.products.filteredProducts);
-  const cartItems = useSelector((state: any) => state.cart.cartItems);  
+  const cartItems = useSelector((state: any) => state.cart.cartItems);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
-  /**
-   * Formats the product price according to the Turkish currency format.
-   * @param {number} price product price
-   */
-  const currencyFormat = (price: number) => {
-    const currency_symbol = "₺";
-    const formattedOutput = new Intl.NumberFormat("tr-TR", {
-      style: "currency",
-      currency: "TRY",
-      minimumFractionDigits: 0,
-    });
-    return formattedOutput.format(price).replace(currency_symbol, "");
-  };
 
   // Main component return
   return (

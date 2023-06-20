@@ -36,7 +36,8 @@ const Login: FC = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     
-    const user = await register(email, password);
+    const user = await register(email, password); 
+
     if (!user) return;
     dispatch(loginStore(user));
     router.push('/')

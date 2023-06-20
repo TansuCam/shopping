@@ -1,7 +1,8 @@
-// React & Next
+// React & Next & Redux
 // ---------------
 import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 // Logos
 // ---------------
@@ -9,7 +10,10 @@ import SvgLogo from "@/icons/Logo";
 import SvgUser from "@/icons/User";
 import SvgWallet from "@/icons/Wallet";
 import SvgCart from "@/icons/Cart";
-import { useSelector } from "react-redux";
+
+// Helpers
+// ---------------
+import { currencyFormat } from "@/helpers";
 
 // Main
 // ---------------
@@ -22,20 +26,6 @@ const Header: FC = () => {
   useEffect(() => {
     if (user) setIsUserLogin(true);
   }, [user]);
-
-  /**
-   * Formats the product price according to the Turkish currency format.
-   * @param {number} price product price
-   */
-  const currencyFormat = (price: number) => {
-    const currency_symbol = "₺";
-    const formattedOutput = new Intl.NumberFormat("tr-TR", {
-      style: "currency",
-      currency: "TRY",
-      minimumFractionDigits: 0,
-    });
-    return formattedOutput.format(price).replace(currency_symbol, "");
-  };
 
   return (
     <header className="shadow-lg mb-[3px]">
