@@ -61,7 +61,7 @@ const Products: FC = () => {
             {/* Add to cart */}
             {cartItems.find((items: any) => items.id === product.id) ? (
               <div
-                className="bg-[#c3ecea] flex justify-center items-center flex-wrap cursor-pointer h-[32px] w-[75px] rounded-full gap-3"
+                className="bg-[#c3ecea] flex justify-center items-center flex-wrap cursor-pointer h-[32px] w-[75px] min-w-[75px] rounded-full gap-3"
                 onClick={() => dispatch(addCart(product))}
               >
                 <span className="relative inline-block">

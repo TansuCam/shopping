@@ -54,7 +54,7 @@ const Header: FC = () => {
               </button>
 
               {/* Wallet Button */}
-              <Link href="/" className="flex items-center">
+              <Link href="/wallet" className="flex items-center">
                 <button className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full">
                   <SvgWallet width="28" height="28" />
                   <p className="text-primary-100 font-medium">Cüzdanım</p>
