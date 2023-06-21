@@ -1,8 +1,9 @@
 // React & Next & Redux
 // ---------------
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/store/auth";
 
 // Logos
 // ---------------
@@ -19,13 +20,10 @@ import { currencyFormat } from "@/helpers";
 // ---------------
 const Header: FC = () => {
   // Redux hooks
-  const { user } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+  
+  const user = useSelector((state: any) => state.auth.user);
   const cartItems = useSelector((state: any) => state.cart);
-
-  const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
-  useEffect(() => {
-    if (user) setIsUserLogin(true);
-  }, [user]);
 
   return (
     <header className="shadow-lg mb-[3px]">
@@ -35,7 +33,7 @@ const Header: FC = () => {
           <SvgLogo width={281} height={100} />
         </Link>
         <div className="flex gap-2">
-          {!isUserLogin ? (
+          {!user ? (
             <>
               {/* Login Button */}
               <Link href="/login">
@@ -48,7 +46,10 @@ const Header: FC = () => {
           ) : (
             <>
               {/* User Info */}
-              <button className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full">
+              <button
+                className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full"
+                onClick={() => dispatch(logout())}
+              >
                 <SvgUser width="28" height="28" />
                 <p className="text-primary-100 font-medium">Giriş Yap</p>
               </button>

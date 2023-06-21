@@ -16,6 +16,7 @@ import "@/style/globals.css";
 // Components
 // ---------------
 import Header from "@/components/header";
+import AuthProvider from "@/components/AuthProvider";
 
 // Meta
 // ---------------
@@ -39,8 +40,10 @@ export default function RootLayout({
     <html lang="tr">
       <body className={inter.className}>
         <Provider store={store}>
-          <Header />
-          <main>{children}</main>
+          <AuthProvider>
+            <Header />
+            <main>{children}</main>
+          </AuthProvider>
         </Provider>
       </body>
     </html>

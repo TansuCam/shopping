@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAqpS-ivmleLmUnqq5D_EgEyujgJGwxzMQ",
   authDomain: "shopping-bff10.firebaseapp.com",
   projectId: "shopping-bff10",
@@ -18,10 +18,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 export const db = getFirestore(app);
 
-// User Login 
+// User Login
 export const register = async (email: string, password: string) => {
-  const { user } = await createUserWithEmailAndPassword(auth, email, password);
-  return user;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export default app;

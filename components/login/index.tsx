@@ -3,12 +3,12 @@
 // React & Next
 // ---------------
 import React, { FC, useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// Redux 
+// Redux
 // ---------------
-import { login as loginStore } from "@/store/auth";
+import { setError, setUser } from "@/store/auth";
 import { useDispatch } from "react-redux";
 
 // Firebase
@@ -30,17 +30,19 @@ const Login: FC = () => {
 
   // Redux dispatch
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
 
   // Login form submit
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
-    const user = await register(email, password); 
 
-    if (!user) return;
-    dispatch(loginStore(user));
-    router.push('/')
+    try {
+      const response = await register(email, password);
+      dispatch(setUser(response.user));
+      router.push("/");
+    } catch (error) {
+      dispatch(setError(error));
+    }
   };
 
   // Main component return
