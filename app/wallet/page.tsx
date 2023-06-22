@@ -11,7 +11,7 @@ import SvgRemove from "@/icons/Remove";
 
 // Redux Toolkit
 // ---------------
-import { AppDispatch } from "@/store";
+import { AppDispatch, RootState } from "@/store";
 import { addCart, removeCart } from "@/store/cart";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,15 +19,17 @@ import { useDispatch, useSelector } from "react-redux";
 // ---------------
 import { calculateCategoryTotalPrice, currencyFormat } from "@/helpers";
 import { BarChart } from "./barChart";
+import { CategoryTotalPrice } from "./types";
+import { Product } from "@/components/products/types";
 
 // Main
 // ---------------
 const Wallet: FC = () => {
   // Redux Hooks
-  const cartItems = useSelector((state: any) => state.cart);
+  const cartItems = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [categoryTotal, setCategoryTotal] = useState<Record<string, unknown>>();
+  const [categoryTotal, setCategoryTotal] = useState<CategoryTotalPrice>();
 
   const getCategoryTotal = async () => {
     const getCalculate = await calculateCategoryTotalPrice(
@@ -61,7 +63,7 @@ const Wallet: FC = () => {
               {`(${currencyFormat(cartItems.totalQuantity)})`}
             </p>
             {cartItems &&
-              cartItems?.cartItems?.map((items: any) => (
+              cartItems?.cartItems?.map((items: Product) => (
                 <div
                   key={items.id}
                   className="flex border-2 items-center justify-between border-solid border-primary-50 rounded-md mb-2 pl-8 py-5"
@@ -97,7 +99,7 @@ const Wallet: FC = () => {
                       <p className="text-[12px] text-primary-100">
                         {
                           cartItems?.cartItems.find(
-                            (cartItem: any) => cartItem.id === items.id
+                            (cartItem: Product) => cartItem.id === items.id
                           )?.quantity
                         }
                       </p>

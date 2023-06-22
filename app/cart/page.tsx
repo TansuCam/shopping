@@ -11,7 +11,7 @@ import SvgRemove from "@/icons/Remove";
 
 // Redux Toolkit
 // ---------------
-import { AppDispatch } from "@/store";
+import { AppDispatch, RootState } from "@/store";
 import { addCart, removeCart } from "@/store/cart";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,11 +19,16 @@ import { useDispatch, useSelector } from "react-redux";
 // ---------------
 import { currencyFormat } from "@/helpers";
 
+// Types
+// ------------
+import { Product } from "@/components/products/types";
+import Link from "next/link";
+
 // Main
 // ---------------
 const Cart: FC = () => {
   // Redux Hooks
-  const cartItems = useSelector((state: any) => state.cart);
+  const cartItems = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<AppDispatch>();
 
   // Main component return
@@ -35,7 +40,7 @@ const Cart: FC = () => {
       </div>
       <div className="mt-8 mx-[70px]">
         {cartItems &&
-          cartItems?.cartItems?.map((items: any) => (
+          cartItems?.cartItems?.map((items: Product) => (
             <div
               key={items.id}
               className="flex border-2 items-center justify-between border-solid border-primary-50 rounded-md mb-2 px-8 py-5"
@@ -71,7 +76,7 @@ const Cart: FC = () => {
                   <p className="text-[12px] text-primary-100">
                     {
                       cartItems?.cartItems.find(
-                        (cartItem: any) => cartItem.id === items.id
+                        (cartItem: Product) => cartItem.id === items.id
                       )?.quantity
                     }
                   </p>
@@ -89,9 +94,11 @@ const Cart: FC = () => {
             </div>
           ))}
         {/* Confirm Cart */}
+        <Link href='/wallet'>
         <button className="btn bg-primary-50 text-white float-right py-2 w-[250px] mt-10 rounded-md">
           Sepeti Onayla
         </button>
+        </Link>
       </div>
     </>
   );

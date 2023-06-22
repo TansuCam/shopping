@@ -4,6 +4,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/auth";
+import { RootState } from "@/store";
 
 // Logos
 // ---------------
@@ -21,9 +22,11 @@ import { currencyFormat } from "@/helpers";
 const Header: FC = () => {
   // Redux hooks
   const dispatch = useDispatch();
-  
-  const user = useSelector((state: any) => state.auth.user);
-  const cartItems = useSelector((state: any) => state.cart);
+
+  const user: any = useSelector((state: RootState) => state.auth.user);
+  const cartItems = useSelector((state: RootState) => state.cart);
+
+  const getUserName = user?.email.slice(0, user?.email.indexOf("@"));
 
   return (
     <header className="shadow-lg mb-[3px]">
@@ -48,10 +51,10 @@ const Header: FC = () => {
               {/* User Info */}
               <button
                 className="flex items-center gap-2 hover:bg-primary-25 p-2 rounded-full"
-                onClick={() => dispatch(logout())}
+                // onClick={() => dispatch(logout())}
               >
                 <SvgUser width="28" height="28" />
-                <p className="text-primary-100 font-medium">Giriş Yap</p>
+                <p className="text-primary-100 font-medium">{getUserName}</p>
               </button>
 
               {/* Wallet Button */}
@@ -67,7 +70,7 @@ const Header: FC = () => {
 
               {/* Cart Button */}
               <Link href="/cart">
-                <div className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer gap-2">
+                <div className="bg-white p-4 flex justify-center items-center flex-wrap cursor-pointer gap-2 hover:bg-primary-25 rounded-full">
                   <span className="relative inline-block">
                     <SvgCart width="28" height="28" />
                     <span className="absolute inline-flex items-center shadow-[0px_1px_#888888] justify-center px-[5px] py-[2px] leading-none rounded-full top-[-4px] right-[-4px] text-primary-100 bg-white text-[11.5px]">

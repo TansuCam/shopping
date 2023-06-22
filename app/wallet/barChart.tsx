@@ -19,8 +19,15 @@ ChartJS.register(
   Legend
 );
 
-export function BarChart({ categoryTotalsPrice }: any) {
-  console.log(categoryTotalsPrice)
+// Types
+// -----------
+import { CategoryTotalPrice } from "./types";
+
+interface CategoryTotalPriceProduct {
+  categoryTotalsPrice: CategoryTotalPrice | undefined;
+}
+
+export function BarChart({ categoryTotalsPrice }: CategoryTotalPriceProduct) {
   const options = {
     responsive: true,
     plugins: {

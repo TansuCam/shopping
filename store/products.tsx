@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 // Redux Toolkit
 // --------------
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Product } from "@/components/products/types";
 
 /**
  * Returns the products in the products collection in the Firestore database.
@@ -14,7 +15,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const query = await getDocs(collection(db, "products"));
-    const products = query.docs.map((doc: any) => ({
+    const products = query.docs.map((doc:any) => ({
       id: doc.id,
       ...doc.data(),
     }));
@@ -22,7 +23,12 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-const initialState: any = {
+interface ProductState {
+  filteredProducts: Product[];
+  allProducts: Product[];
+}
+
+const initialState: ProductState = {
   filteredProducts: [],
   allProducts: [],
 };
@@ -35,7 +41,7 @@ const products = createSlice({
       return {
         ...state,
         filteredProducts: [
-          ...state.allProducts.filter((product: any) =>
+          ...state.allProducts.filter((product) =>
             product.name.toLowerCase().includes(action.payload.toLowerCase())
           ),
         ],
@@ -47,7 +53,7 @@ const products = createSlice({
             ...state,
             filteredProducts: [
               ...state.allProducts.filter(
-                (product: any) =>
+                (product) =>
                   product.category.toLowerCase() ===
                   action.payload.toLowerCase()
               ),

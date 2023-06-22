@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import SvgSearch from "@/icons/Search";
 import dashboardImg from "@/images/dashboard.png";
+import { RootState } from "@/store";
 
 // Main
 // ----------
@@ -39,7 +40,7 @@ const ProductHeader: FC = () => {
     });
   };
 
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   // Main component return
   return (

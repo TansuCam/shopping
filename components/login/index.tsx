@@ -33,7 +33,7 @@ const Login: FC = () => {
   const router = useRouter();
 
   // Login form submit
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

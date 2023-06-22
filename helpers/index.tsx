@@ -1,3 +1,6 @@
+import { CategoryTotalPrice } from "@/app/wallet/types";
+import { Product } from "@/components/products/types";
+
 /**
  * Formats the product price according to the Turkish currency format.
  * @param {number} price product price
@@ -12,26 +15,39 @@ export const currencyFormat = (price: number) => {
   return formattedOutput.format(price).replace(currency_symbol, "");
 };
 
-export const calculateCategoryTotalPrice = (cartItems: any[], key: string) => {
-  const products = cartItems.reduce((acc, currentValue) => {
-    let groupKey = currentValue[key];
-    if (!acc[groupKey]) {
-      acc[groupKey] = [];
-    }
-    acc[groupKey].push(currentValue);
-    return acc;
-  }, {});
-  const categoryTotals: any = {};
+export const calculateCategoryTotalPrice = (
+  cartItems: Product[],
+  key: keyof Product
+) => {
+  const products: { [category: string]: Product[] } = cartItems.reduce(
+    (acc: { [category: string]: Product[] }, currentValue: Product) => {
+      let groupKey = currentValue[key];
+      if (!acc[groupKey]) {
+        acc[groupKey] = [];
+      }
+      acc[groupKey].push(currentValue);
+      return acc;
+    },
+    {}
+  );
 
-  for (const category in products) {
-    let total = 0;
-
-    for (const product of products[category]) {
-      total += product.price;
-    }
-
-    categoryTotals[category] = total;
+  interface CategoryTotalPrice {
+    [key: string]: number;
   }
 
-  return categoryTotals;
+  const result: CategoryTotalPrice = {};
+
+  for (const category in products) {
+    if (products.hasOwnProperty(category)) {
+      const items = products[category];
+      let totalPrice = 0;
+
+      for (const item of items) {
+        totalPrice += item.price * item.quantity;
+      }
+
+      result[category] = totalPrice;
+    }
+  }
+  return result;
 };
