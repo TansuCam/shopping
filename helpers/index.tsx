@@ -1,5 +1,9 @@
-import { CategoryTotalPrice } from "@/app/wallet/types";
+// Types
+// --------
 import { Product } from "@/components/products/types";
+
+// Helpers
+// --------
 
 /**
  * Formats the product price according to the Turkish currency format.
@@ -15,6 +19,12 @@ export const currencyFormat = (price: number) => {
   return formattedOutput.format(price).replace(currency_symbol, "");
 };
 
+/**
+ * It gives the price distribution of the products 
+ * added to the cart according to the category.
+ * @param {Product[]} cartItems product list
+ * @param {keyof Product} key key
+ */
 export const calculateCategoryTotalPrice = (
   cartItems: Product[],
   key: keyof Product
