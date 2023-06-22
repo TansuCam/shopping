@@ -1,7 +1,7 @@
 "use client";
 // React & Next
 // ----------
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import Link from "next/link";
 
 // Redux Toolkit
@@ -9,14 +9,19 @@ import Link from "next/link";
 import { AppDispatch, RootState } from "@/store";
 import { fetchProducts } from "@/store/products";
 import { useDispatch, useSelector } from "react-redux";
+
+// Components
+// ----------
 import SvgCartIcon from "@/icons/CartIcon";
-import clsx from "clsx";
 import { addCart } from "@/store/cart";
 import SvgAdd from "@/icons/Add";
 
 // Helpers
 // ---------------
 import { currencyFormat } from "@/helpers";
+
+// Types
+// ---------------
 import { Product } from "./types";
 
 // Main

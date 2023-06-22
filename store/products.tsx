@@ -6,6 +6,9 @@ import { collection, getDocs } from "firebase/firestore";
 // Redux Toolkit
 // --------------
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+// Components
+// --------------
 import { Product } from "@/components/products/types";
 
 /**
